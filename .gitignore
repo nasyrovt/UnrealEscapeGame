@@ -77,6 +77,8 @@ UnrealEscapeGame/Plugins/*/Intermediate/*
 # Cache files for the editor to use
 UnrealEscapeGame/DerivedDataCache/*
 
-# Starter Content Ignored
+# png files of Materials
+UnrealEscapeGame/Source/**/*.png
+UnrealEscapeGame/Content/MS_DecoStoneTiles/*
+UnrealEscapeGame/Content/**/*.zip
 
-UnrealEscapeGame/Content/StarterContent/*

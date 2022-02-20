@@ -28,7 +28,8 @@ void UWorldPosition::BeginPlay()
 	// UE_LOG(LogTemp, Warning, TEXT("%s"), **PtrLog);
 
 	FString NameOfOwner = GetOwner()->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("I'm attached to %s"), *NameOfOwner);
+	FString OwnersTransform = GetOwner()->GetActorLocation().ToString();
+	UE_LOG(LogTemp, Warning, TEXT("I'm attached to %s, my location is %s."), *NameOfOwner, *OwnersTransform);
 }
 
 // Called every frame
