@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/AudioComponent.h"
 #include "Components/ActorComponent.h"
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
@@ -16,19 +17,23 @@ public:
 	// Sets default values for this component's properties
 	UOpenDoor();
 
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	void OpenDoor(float DeltaTime);
+	void CloseDoor(float DeltaTime);
+
+	float TotalMassOfActors() const;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
-public:
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
-	void OpenDoor(float DeltaTime);
-	void CloseDoor(float DeltaTime);
-
 private:
 	float CurrentYaw;
 	float InitialYaw;
+
+	UPROPERTY(EditAnywhere)
+	float MassToOpenDoor = 50.f;
 
 	UPROPERTY(EditAnywhere)
 	float TargetYaw = 90.f;
@@ -40,13 +45,20 @@ private:
 	float CloseSpeed = 1.f;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume *PressurePlate;
+	ATriggerVolume *PressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
-	AActor *ActorThatOpens;
+	UAudioComponent *AudioComponent = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float DoorCloseDelay = 0.5f;
 
 	float DoorLastOpened = 0.f;
+
+	// Tracks Sound Played
+	bool OpenDoorSound = false;
+	bool CloseDoorSound = true;
+
+	void FindAudioComponent();
+	void FindPressurePlate();
 };
